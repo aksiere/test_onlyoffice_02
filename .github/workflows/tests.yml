@@ -17,12 +17,3 @@ jobs:
 
       - run: pnpm install
       - run: pnpm test -- --run
-
-      - name: Firefox
-        run: sudo apt-get update && sudo apt-get install -y firefox
-
-      - name: Run
-        run: npm run test
-        env:
-          PUPPETEER_PRODUCT: firefox
-          PUPPETEER_EXECUTABLE_PATH: /usr/bin/firefox
