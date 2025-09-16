@@ -1,11 +1,11 @@
 import puppeteer from 'puppeteer'
 import { writeFileSync } from 'fs'
 
-async function main(outputFileName) {
+export async function main(url, outputFileName) {
 	const browser = await puppeteer.launch({ browser: 'firefox' })
 	const page = await browser.newPage()
 
-	await page.goto('https://www.onlyoffice.com/')
+	await page.goto(url)
 	await page.setViewport({ width: 1920, height: 1080 })
 
 	await page.locator('#navitem_about').hover()
@@ -42,5 +42,5 @@ async function main(outputFileName) {
 	return result
 }
 
-const offices = await main('offices.csv')
-console.log(offices)
+// const offices = await main('https://www.onlyoffice.com/', 'offices.csv')
+// console.log(offices)
