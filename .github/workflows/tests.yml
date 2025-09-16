@@ -15,8 +15,7 @@ jobs:
         with:
           version: 8
 
-      - run: npx puppeteer browsers install firefox
-
       - run: pnpm install
+      - run: pnpx puppeteer browsers install firefox
       - run: pnpm test -- --run
       
