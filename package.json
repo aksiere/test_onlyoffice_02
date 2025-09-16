@@ -1,8 +1,11 @@
 {
-  "dependencies": {
-    "vitest": "^3.2.4"
-  },
-  "devDependencies": {
-    "puppeteer": "^24.21.0"
-  }
+	"scripts": {
+		"test": "npx vitest"
+	},
+	"dependencies": {
+		"vitest": "^3.2.4"
+	},
+	"devDependencies": {
+		"puppeteer": "^24.21.0"
+	}
 }
