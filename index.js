@@ -15,10 +15,18 @@ await Promise.all([
 	page.click('a#navitem_about_contacts'),
 ])
 
-const contents = await page.$$('[itemprop="addressLocality"]')
-for (const content of contents) {
-	const country = await content.evaluate(el => el.textContent)
-	console.log(country.trim())
+const offices = await page.$$('[itemprop~="addressLocality"]')
+for (const office of offices) {
+	const parent = await office.evaluateHandle(el => el.parentNode)
+	const [ country, companyName, ...rest ] = await parent.$$eval('span', elements =>
+		elements.map(e => e.textContent),
+	)
+
+	console.log({
+		country: country.trim().replace(/\s+/g, ' '),
+		companyName: companyName.trim().replace(/\s+/g, ' '),
+		fullAddress: rest.map(r => r.trim().replace(/\s+/g, ' ')).join(', ')
+	})
 }
 
 // await page.screenshot({
