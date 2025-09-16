@@ -1,7 +1,6 @@
 {
 	"scripts": {
-		"test": "npx vitest",
-		"postinstall": "npx --yes @rollup/rollup-linux-x64-gnu || true"
+		"test": "npx vitest"
 	},
 	"dependencies": {
 		"vitest": "^3.2.4"

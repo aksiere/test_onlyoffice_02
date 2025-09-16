@@ -18,6 +18,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Fix rollup bug
+        run: npm install @rollup/rollup-linux-x64-gnu
+		
       - name: Firefox
         run: sudo apt-get update && sudo apt-get install -y firefox
 
