@@ -2,7 +2,11 @@ import puppeteer from 'puppeteer'
 import { writeFileSync } from 'fs'
 
 export async function main(url, outputFileName) {
-	const browser = await puppeteer.launch({ browser: 'firefox' })
+	const browser = await puppeteer.launch({
+		browser: 'firefox',
+		headless: 'new',
+		args: ['--no-sandbox', '--disable-setuid-sandbox'],
+	})
 	const page = await browser.newPage()
 
 	await page.goto(url)
@@ -20,7 +24,7 @@ export async function main(url, outputFileName) {
 	const offices = await page.$$('[itemprop~="addressLocality"]')
 	for (const office of offices) {
 		const parent = await office.evaluateHandle(el => el.parentNode)
-		const [ country, companyName, ...rest ] = await parent.$$eval('span', elements =>
+		const [country, companyName, ...rest] = await parent.$$eval('span', elements =>
 			elements.map(e => e.textContent),
 		)
 
@@ -38,7 +42,7 @@ export async function main(url, outputFileName) {
 	await browser.close()
 
 	writeFileSync(outputFileName, 'Country,CompanyName,FullAddress\n' + result.map(r => `"${r.country}","${r.companyName}","${r.fullAddress}"`).join('\n'))
-	
+
 	return result
 }
 
