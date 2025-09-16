@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer'
-import { appendFileSync } from 'fs'
+import { writeFileSync } from 'fs'
 
 async function main(outputFileName) {
 	const browser = await puppeteer.launch({ browser: 'firefox' })
@@ -15,6 +15,8 @@ async function main(outputFileName) {
 		page.click('a#navitem_about_contacts')
 	])
 
+	let result = []
+
 	const offices = await page.$$('[itemprop~="addressLocality"]')
 	for (const office of offices) {
 		const parent = await office.evaluateHandle(el => el.parentNode)
@@ -22,11 +24,23 @@ async function main(outputFileName) {
 			elements.map(e => e.textContent),
 		)
 
-		const csvLine = `"${country.trim().replace(/\s+/g, ' ')}","${companyName.trim().replace(/\s+/g, ' ')}","${rest.map(r => r.trim().replace(/\s+/g, ' ')).join(', ')}"\n`
-		appendFileSync(outputFileName, csvLine)
+		let country_ = country.trim().replace(/\s+/g, ' ')
+		let companyName_ = companyName.trim().replace(/\s+/g, ' ')
+		let fullAddress_ = rest.map(r => r.trim().replace(/\s+/g, ' ')).join(', ')
+
+		result.push({
+			country: country_,
+			companyName: companyName_,
+			fullAddress: fullAddress_
+		})
 	}
 
 	await browser.close()
+
+	writeFileSync(outputFileName, 'Country,CompanyName,FullAddress\n' + result.map(r => `"${r.country}","${r.companyName}","${r.fullAddress}"`).join('\n'))
+	
+	return result
 }
 
-await main('offices.csv')
+const offices = await main('offices.csv')
+console.log(offices)
