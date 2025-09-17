@@ -7,7 +7,8 @@ export async function main(url, outputFileName) {
 		headless: 'new',
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
 	})
-	
+
+	// 1
 	const page = await browser.newPage()
 
 	await page.goto(url)
