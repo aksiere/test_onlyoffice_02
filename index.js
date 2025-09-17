@@ -47,5 +47,5 @@ export async function main(url, outputFileName) {
 	return result
 }
 
-// const offices = await main('https://www.onlyoffice.com/', 'offices.csv')
-// console.log(offices)
+const offices = await main('https://www.onlyoffice.com/', 'offices.csv')
+console.log(offices)

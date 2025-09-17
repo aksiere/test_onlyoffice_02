@@ -3,9 +3,7 @@
 		"test": "npx vitest"
 	},
 	"dependencies": {
+		"puppeteer": "^24.22.0",
 		"vitest": "^3.2.4"
-	},
-	"devDependencies": {
-		"puppeteer": "^24.21.0"
 	}
 }
