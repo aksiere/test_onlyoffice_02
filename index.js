@@ -9,7 +9,6 @@ export async function main(url, outputFileName) {
 	})
 	
 	const page = await browser.newPage()
-
 	await page.goto(url)
 	await page.setViewport({ width: 1920, height: 1080 })
 
