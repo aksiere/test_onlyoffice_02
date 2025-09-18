@@ -4,6 +4,8 @@ import puppeteer from 'puppeteer'
 
 let browser, page
 
+// сначала делал как отдельные test() но потом понял что можно было все в describe запихнуть и разбить main() на методы более конкретные, так было бы правильнее.
+
 describe('ONLYOFFICE', () => {
 	beforeAll(async () => {
 		const url = 'https://www.onlyoffice.com/'
